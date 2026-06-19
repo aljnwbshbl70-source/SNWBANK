@@ -6,73 +6,180 @@
     <title>𝑺𝑵𝑶𝑾⊰⛈️⊱𝑩𝑨𝑵𝑲 ❤️‍🩹</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-    <style>
-        :root { --neon-blue: #00f2ff; --glass: rgba(0, 0, 0, 0.85); }
-        body, html { margin: 0; padding: 0; min-height: 100%; width: 100%; font-family: 'Segoe UI', sans-serif; overflow-x: hidden; transition: 0.5s; background: #262626; }
-        .bg-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: url('https://images.alphacoders.com/132/1322502.jpeg') no-repeat center center fixed; background-size: cover; z-index: -2; filter: brightness(0.4); }
+   <style>
+        :root { 
+            --neon-blue: #00f2ff; 
+            --glass: rgba(0, 0, 0, 0.85); 
+            --box-bg: rgba(15, 15, 15, 0.9);
+            --box-border: rgba(0, 242, 255, 0.3);
+        }
+        body, html { margin: 0; padding: 0; min-height: 100%; width: 100%; font-family: 'Segoe UI', sans-serif; overflow-x: hidden; transition: 0.5s; background: #121212; color: #fff; }
+        .bg-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: url('https://images.alphacoders.com/132/1322502.jpeg') no-repeat center center fixed; background-size: cover; z-index: -2; filter: brightness(0.3); transition: background 0.5s ease; }
+        
+        /* متحكم وتأثيرات الطقس التساقطية */
+        #weather-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 999; overflow: hidden; }
+        .weather-drop { position: absolute; pointer-events: none; opacity: 0.8; animation: fall linear infinite; color: #fff; font-size: 14px; }
+        @keyframes fall {
+            0% { transform: translateY(-20px) translateX(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(105vh) translateX(30px) rotate(360deg); opacity: 0; }
+        }
+
         #loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: black; display: flex; justify-content: center; align-items: center; z-index: 9999; color: var(--neon-blue); font-size: 24px; }
         .container-wrapper { width: 95%; max-width: 500px; margin: auto; padding: 20px 10px; box-sizing: border-box; }
         .login-container { display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 90vh; }
-        .neon-box { background: var(--glass); padding: 25px; border-radius: 20px; border: 2px solid var(--neon-blue); box-shadow: 0 0 20px var(--neon-blue), inset 0 0 10px var(--neon-blue); text-align: center; color: white; margin-bottom: 20px; width: 100%; box-sizing: border-box; }
-        .input-group { position: relative; width: 100%; max-width: 280px; margin: 15px auto; }
-        .neon-input { display: block; width: 100%; padding: 12px; background: rgba(255,255,255,0.1); border: 1px solid var(--neon-blue); border-radius: 8px; color: white; text-align: center; outline: none; box-sizing: border-box; width: 100%; }
-        .toggle-pass { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--neon-blue); cursor: pointer; }
-        .neon-btn { padding: 12px 30px; background: transparent; color: var(--neon-blue); border: 2px solid var(--neon-blue); border-radius: 10px; cursor: pointer; font-weight: bold; box-shadow: 0 0 15px var(--neon-blue); transition: 0.3s; margin: 5px; display: inline-block; text-decoration: none; }
-        .neon-btn:hover { background: var(--neon-blue); color: black; box-shadow: 0 0 35px var(--neon-blue); }
+        
+        /* توحيد تصميم البوكسات والصناديق لتتبع هوية موحدة واضحة النصوص */
+        .neon-box { 
+            background: var(--box-bg); 
+            padding: 25px; 
+            border-radius: 20px; 
+            border: 2px solid var(--box-border); 
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(0, 242, 255, 0.05); 
+            text-align: center; 
+            color: white; 
+            margin-bottom: 25px; 
+            width: 100%; 
+            box-sizing: border-box; 
+            backdrop-filter: blur(15px);
+            transition: all 0.3s ease;
+        }
+        .text-container-block {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 15px;
+            margin: 10px 0;
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            text-align: right;
+        }
+        
+        .input-group { position: relative; width: 100%; max-width: 320px; margin: 15px auto; }
+        .neon-input { display: block; width: 100%; padding: 14px; background: rgba(0,0,0,0.4); border: 1px solid var(--box-border); border-radius: 12px; color: white; text-align: center; outline: none; box-sizing: border-box; transition: all 0.4s ease; font-size: 14px; }
+        .neon-input:focus { border-color: var(--neon-blue); box-shadow: 0 0 15px var(--neon-blue); background: rgba(0,0,0,0.6); transform: scale(1.02); }
+        
+        .toggle-pass { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--neon-blue); cursor: pointer; }
+        .neon-btn { padding: 12px 25px; background: transparent; color: var(--neon-blue); border: 2px solid var(--neon-blue); border-radius: 12px; cursor: pointer; font-weight: bold; box-shadow: 0 0 10px rgba(0, 242, 255, 0.1); transition: 0.3s; margin: 5px; display: inline-block; text-decoration: none; }
+        .neon-btn:hover { background: var(--neon-blue); color: black; box-shadow: 0 0 25px var(--neon-blue); transform: translateY(-2px); }
         .top-controls { position: fixed; top: 15px; left: 15px; z-index: 1000; display: flex; gap: 10px; }
         .theme-btn { padding: 8px 12px; border-radius: 15px; border: none; cursor: pointer; font-weight: bold; font-size: 12px; }
-        #main-app { display: none; padding-bottom: 100px; }
+        #main-app { display: none; padding-bottom: 110px; }
         .section { display: none; animation: fadeIn 0.5s; }
         .active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .mada-card { width: 100%; max-width: 350px; height: 190px; background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d); border-radius: 15px; margin: 10px auto 25px; padding: 20px; color: white; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.7); border: 1px solid rgba(255,255,255,0.2); box-sizing: border-box; }
-        .history-list, .top-list { text-align: right; margin-top: 15px; max-height: 200px; overflow-y: auto; font-size: 14px; }
-        .history-item, .top-item { padding: 8px; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: center; }
+        
+        /* بطاقة مدى الفاخرة باللون الأصفر الذهبي الفاخر مع تأثير اللمعان الحركي التام */
+        .mada-card { 
+            width: 100%; 
+            max-width: 380px; 
+            height: 210px; 
+            background: linear-gradient(135deg, #b8860b 0%, #ffd700 50%, #8a6d1c 100%); 
+            border-radius: 18px; 
+            margin: 15px auto 25px; 
+            padding: 22px; 
+            color: #000; 
+            position: relative; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6), 0 0 20px rgba(255, 215, 0, 0.2); 
+            border: 1px solid rgba(255,255,255,0.4); 
+            box-sizing: border-box; 
+            overflow: hidden; 
+            transition: transform 0.3s ease; 
+            background-size: cover;
+            background-position: center;
+        }
+        .mada-card::before { 
+            content: ''; 
+            position: absolute; 
+            top: -50%; 
+            left: -50%; 
+            width: 200%; 
+            height: 200%; 
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.6), transparent); 
+            transform: rotate(45deg); 
+            animation: cardShine 3.5s linear infinite; 
+        }
+        @keyframes cardShine { 0% { transform: translateX(-100%) rotate(45deg); } 100% { transform: translateX(100%) rotate(45deg); } }
+        
+        /* نصوص بطاقة مدى البارزة في حال وجود خلفية مخصصة */
+        .mada-card.custom-bg-applied { color: #fff; text-shadow: 2px 2px 8px #000, -2px -2px 8px #000, 0 0 10px #000; }
+        .mada-card.custom-bg-applied .mada-logo, .mada-card.custom-bg-applied .wifi-ic { filter: drop-shadow(0px 2px 5px rgba(0,0,0,0.9)); color: #fff !important; }
+
+        /* الأفاتار التفاعلي الدائري المتوهج للأعضاء */
+        .user-avatar-circle {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            border: 2px solid var(--neon-blue);
+            box-shadow: 0 0 15px var(--neon-blue);
+            cursor: pointer;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+            background: #222;
+        }
+        .user-avatar-circle:hover { transform: scale(1.1); }
+        
+        .history-list, .top-list { text-align: right; margin-top: 15px; max-height: 280px; overflow-y: auto; font-size: 14px; }
+        .history-item, .top-item { padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; }
+        
+        /* زينة واستايل قوي لأغنى 10 هيبة لا تضاهى */
+        .top-rank-box { display: flex; align-items: center; gap: 12px; }
+        .top-item { background: rgba(255,255,255,0.02); margin-bottom: 8px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); }
+        .top-item:nth-child(1) { background: linear-gradient(90deg, rgba(255,215,0,0.2), rgba(0,0,0,0.4)); border: 2px solid #ffd700; box-shadow: 0 0 20px rgba(255,215,0,0.3); }
+        .top-item:nth-child(2) { background: linear-gradient(90deg, rgba(192,192,192,0.18), rgba(0,0,0,0.4)); border: 2px solid #c0c0c0; box-shadow: 0 0 15px rgba(192,192,192,0.2); }
+        .top-item:nth-child(3) { background: linear-gradient(90deg, rgba(205,127,50,0.15), rgba(0,0,0,0.4)); border: 2px solid #cd7f32; box-shadow: 0 0 12px rgba(205,127,50,0.15); }
+
         .history-top { display: flex; justify-content: space-between; width: 100%; cursor: pointer; }
-        .val-plus { color: #00ff88; }
-        .val-minus { color: #ff4d4d; }
-        .bottom-nav { position: fixed; bottom: 0; width: 100%; background: #000; display: flex; justify-content: space-around; padding: 10px 0; border-top: 2px solid var(--neon-blue); z-index: 2000; left:0; }
-        .nav-item { color: white; background: none; border: none; cursor: pointer; text-align: center; font-size: 12px; }
-        .shop-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
-        .shop-item { background: rgba(255,255,255,0.1); border: 1px solid var(--neon-blue); border-radius: 10px; padding: 10px; position: relative; text-align: center; cursor: pointer; }
+        .val-plus { color: #00ff88; font-weight: bold; }
+        .val-minus { color: #ff4d4d; font-weight: bold; }
+        
+        .bottom-nav { position: fixed; bottom: 0; width: 100%; background: #000; display: flex; justify-content: space-around; padding: 12px 0; border-top: 2px solid var(--neon-blue); z-index: 2000; left:0; }
+        .nav-item { color: #888; background: none; border: none; cursor: pointer; text-align: center; font-size: 12px; transition: all 0.3s ease; opacity: 0.7; }
+        .nav-item.active-nav { color: var(--neon-blue) !important; text-shadow: 0 0 15px var(--neon-blue); transform: translateY(-4px); opacity: 1; font-weight: bold; }
+        
+        .shop-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px; }
+        .shop-item { background: linear-gradient(145deg, rgba(20,20,20,0.95), rgba(5,5,5,0.98)); border: 2px solid var(--box-border); border-radius: 14px; padding: 15px; position: relative; text-align: center; cursor: pointer; transition: all 0.3s ease; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.4); }
+        .shop-item:hover { border-color: var(--neon-blue); box-shadow: 0 0 20px rgba(0, 242, 255, 0.3); }
+        .shop-price-badge { background: linear-gradient(90deg, #ffd700, #b8860b); color: black; padding: 3px 10px; border-radius: 20px; font-weight: bold; font-size: 11px; display: inline-block; margin-top: 8px; }
+
         table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 13px; }
-        th, td { padding: 8px; border-bottom: 1px solid #333; text-align: center; color: white; }
+        th, td { padding: 10px; border-bottom: 1px solid #222; text-align: center; color: white; }
         .status-badge { padding: 4px 8px; border-radius: 10px; font-size: 10px; font-weight: bold; }
         .pending { background: orange; color: black; }
         .approved { background: #00ff88; color: black; }
         .rejected { background: #ff4d4d; color: white; }
-         #banner { background: white !important; border: 3px solid #d4af37 !important; color: #b8860b !important; font-weight: 900 !important; font-size: 1.2em; text-align: center; padding: 15px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
-         .info-text { margin-top: 20px !important; font-size: 13px !important; color: #888888 !important; font-style: italic !important; text-align: center !important; border-top: 1px solid rgba(255, 255, 255, 0.1) !important; padding-top: 15px !important; display: block !important; }
+        #banner { background: white !important; border: 3px solid #d4af37 !important; color: #b8860b !important; font-weight: 900 !important; font-size: 1.2em; text-align: center; padding: 15px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        .info-text { margin-top: 20px !important; font-size: 13px !important; color: #888888 !important; font-style: italic !important; text-align: center !important; border-top: 1px solid rgba(255, 255, 255, 0.1) !important; padding-top: 15px !important; display: block !important; }
          
-         /* أنماط إضافية للميزات الجديدة */
-         .search-results-box { max-height: 150px; overflow-y: auto; background: rgba(0,0,0,0.9); border: 1px solid var(--neon-blue); border-radius: 8px; margin-top: -10px; margin-bottom: 15px; text-align: right; display: none; }
-         .search-res-item { padding: 10px; color: white; cursor: pointer; border-bottom: 1px solid #222; }
-         .search-res-item:hover { background: var(--neon-blue); color: black; }
+        .search-results-box { max-height: 150px; overflow-y: auto; background: rgba(0,0,0,0.95); border: 1px solid var(--neon-blue); border-radius: 8px; margin-top: -10px; margin-bottom: 15px; text-align: right; display: none; }
+        .search-res-item { padding: 10px; color: white; cursor: pointer; border-bottom: 1px solid #222; }
+        .search-res-item:hover { background: var(--neon-blue); color: black; }
          
-         .custom-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 5000; justify-content: center; align-items: center; padding: 15px; box-sizing: border-box; }
-         .modal-content { background: #111; border: 2px solid var(--neon-blue); border-radius: 20px; padding: 20px; width: 100%; max-width: 400px; color: white; position: relative; box-shadow: 0 0 30px var(--neon-blue); text-align: center; max-height: 90vh; overflow-y: auto; }
-         .close-modal { position: absolute; top: 10px; left: 10px; color: #ff4d4d; font-size: 20px; cursor: pointer; }
+        .custom-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 5000; justify-content: center; align-items: center; padding: 15px; box-sizing: border-box; backdrop-filter: blur(8px); }
+        .modal-content { background: #0f0f0f; border: 2px solid var(--neon-blue); border-radius: 20px; padding: 25px; width: 100%; max-width: 420px; color: white; position: relative; box-shadow: 0 0 35px var(--neon-blue); text-align: center; max-height: 90vh; overflow-y: auto; }
+        .close-modal { position: absolute; top: 12px; left: 15px; color: #ff4d4d; font-size: 24px; cursor: pointer; }
          
-         .sub-tabs { display: flex; justify-content: space-around; margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 5px; }
-         .sub-tab-btn { background: none; border: none; color: #888; font-weight: bold; cursor: pointer; padding: 5px 10px; font-size: 13px; }
-         .sub-tab-btn.active-sub { color: var(--neon-blue); border-bottom: 2px solid var(--neon-blue); }
+        .sub-tabs { display: flex; justify-content: space-around; margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 5px; }
+        .sub-tab-btn { background: none; border: none; color: #888; font-weight: bold; cursor: pointer; padding: 5px 10px; font-size: 13px; }
+        .sub-tab-btn.active-sub { color: var(--neon-blue); border-bottom: 2px solid var(--neon-blue); }
          
-         /* زينة واحتفالات */
-         @keyframes dropGift {
-             0% { transform: translateY(-50px) rotate(0deg); opacity: 1; }
-             100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
-         }
-         .falling-gift { position: fixed; top: -50px; font-size: 24px; z-index: 6000; pointer-events: none; animation: dropGift 3s linear forwards; }
-         .rose-modal { background: radial-gradient(circle, #2a0815 0%, #110208 100%) !important; border-color: #ff69b4 !important; box-shadow: 0 0 30px #ff69b4 !important; }
+        @keyframes dropGift {
+            0% { transform: translateY(-50px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+        .falling-gift { position: fixed; top: -50px; font-size: 24px; z-index: 6000; pointer-events: none; animation: dropGift 3s linear forwards; }
+        .rose-modal { background: radial-gradient(circle, #2a0815 0%, #110208 100%) !important; border-color: #ff69b4 !important; box-shadow: 0 0 30px #ff69b4 !important; }
          
-         /* العجلة */
-         .wheel-container { position: relative; width: 200px; height: 200px; margin: 15px auto; border: 4px solid white; border-radius: 50%; overflow: hidden; transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99); }
-         .wheel-pointer { position: absolute; top: 5px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-top: 20px solid red; z-index: 10; }
+        .wheel-container { position: relative; width: 220px; height: 220px; margin: 20px auto; border: 6px solid #ffd700; border-radius: 50%; overflow: hidden; transition: transform 4s cubic-bezier(0.1, 0.75, 0.1, 1); box-shadow: 0 0 20px rgba(255, 215, 0, 0.4); }
+        .wheel-pointer { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent; border-top: 24px solid #ff4d4d; z-index: 10; }
+        
+        .upload-lbl { display: inline-block; padding: 8px 15px; background: rgba(255,255,255,0.05); border: 1px dashed var(--neon-blue); border-radius: 8px; cursor: pointer; font-size: 13px; margin: 8px 0; transition: 0.3s; }
+        .upload-lbl:hover { background: rgba(0, 242, 255, 0.1); }
     </style>
 </head>
 <body id="bodyTag">
     <div id="loader"> انتظروا شوي يا اوتاكو ❤️‍🩹...</div>
-    <div class="bg-overlay"></div>
+    <div class="bg-overlay" id="customBgOverlay"></div>
+    
+    <!-- حاوية عناصر الطقس التفاعلية المتغيرة من الإعدادات -->
+    <div id="weather-container"></div>
 
     <div class="top-controls">
         <button class="theme-btn" style="background: #222; color: #fff;" onclick="setTheme('boy')">ازرق ☠️</button>
@@ -81,16 +188,16 @@
     </div>
 
     <div id="musicPlayerWrap">
-        <iframe id="ytPlayer" width="1" height="1" src="https://www.youtube.com/embed/sP7tY2PqRQc?enablejsapi=1" frameborder="0" allow="autoplay"></iframe>
+        <div id="ytPlayerPlaceholder"></div>
     </div>
 
-    <!-- شاشة تسجيل الدخول -->
+    <!-- شاشة تسجيل الدخول هويتها موحدة مبهرة ومتأثرة بالخلفية المرفوعة -->
     <div id="login-screen" class="container-wrapper login-container">
         <div id="banner" class="neon-box" style="border-color: #ffd700; color: #ffd700; margin-bottom: 20px;">
             ⚜️ <span id="bannerText">جاري تحميل الإعلان...</span> ⚜️
         </div>
 
-        <div class="neon-box">
+        <div class="neon-box" id="loginBoxUi">
             <div style="font-size: 50px;">🏦</div>
             <h2>𝑺𝑵𝑶𝑾⊰⛈️⊱𝑩𝑨𝑵𝑲</h2>
             <input type="text" id="userIn" class="neon-input" style="margin: 15px auto;" placeholder="اسم المستخدم">
@@ -105,7 +212,6 @@
             <i class="fab fa-whatsapp"></i> مطور البنك
         </a>
         
-        <!-- تعديل: نقل زر المسؤول الخارجي التفاعلي إلى شاشة تسجيل الدخول -->
         <a id="loginBankManagerBtn" href="https://wa.me/966000000000" target="_blank" class="neon-btn" style="border-color:#00ff88; color:#00ff88; width:85%; box-shadow: 0 0 15px #00ff88; margin-top: 8px;">
             <i class="fab fa-whatsapp"></i> <span id="loginBankManagerBtnText">مسئول بنك سنو سنو يامي</span>
         </a>
@@ -120,27 +226,38 @@
         
         <!-- التبويب الأساسي: الرئيسية -->
         <div id="tab-home" class="section active">
-            <div class="mada-card">
-                <div style="display:flex; justify-content:space-between"><span>mada</span><i class="fas fa-wifi"></i></div>
-                <div style="margin-top:30px; font-size:18px; letter-spacing:2px">**** **** **** <span id="cardLast">00</span></div>
-                <div style="margin-top:20px;">
-                    <small id="userNickShow">الاسم</small><br>
-                    <span style="font-size:26px" id="userBalance">0</span> <small>بوينت🪙</small>
+            <!-- بطاقة مدى الفاخرة بالذهب اللامع مع الأفاتار المتوهج التفاعلي -->
+            <div class="mada-card" id="userMadaCard">
+                <div style="display:flex; justify-content:space-between; align-items: center;">
+                    <span class="mada-logo" style="font-weight: bold; font-style: italic; font-size: 20px;">mada</span>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <img src="" id="cardAvatar" class="user-avatar-circle" onclick="openAvatarPopup(this.src)" alt="">
+                        <i class="fas fa-wifi wifi-ic" style="font-size: 18px;"></i>
+                    </div>
+                </div>
+                <div style="margin-top:20px; font-size:18px; letter-spacing:2px; font-weight: bold;">**** **** **** <span id="cardLast">00</span></div>
+                <div style="margin-top:15px; display: flex; justify-content: space-between; align-items: flex-end;">
+                    <div>
+                        <small id="userNickShow" style="font-weight: bold;">الاسم</small><br>
+                        <span style="font-size:26px; font-weight: 900;" id="userBalance">0</span> <small style="font-weight: bold;">بوينت🪙</small>
+                    </div>
+                    <span style="font-size: 11px; font-weight: bold; opacity: 0.8;">PREMIUM PLATINUM</span>
                 </div>
             </div>
             
             <div id="loanWarningBox" class="neon-box" style="display:none; border-color: #ff4d4d;">
                 <h4 style="margin:0; color:#ff4d4d;"><i class="fas fa-exclamation-triangle"></i> تنبيه القرض المالي</h4>
-                <div style="margin-top:10px; font-size:13px;">لقد أخذت قرضاً من أقل من 7 أيام. المتبقي للسداد سيتوقف تلقائياً من أي مبالغ واردة.</div>
+                <div class="text-container-block">لقد أخذت قرضاً من أقل من 7 أيام. المتبقي للسداد سيتوقف تلقائياً من أي مبالغ واردة.</div>
             </div>
 
             <div id="userOrderStatus" class="neon-box" style="display:none; border-color: #ff9800;">
                 <h4 style="margin:0;"><i class="fas fa-shopping-bag"></i>تنبيه الطلبات</h4>
-                <div id="orderStatusMsg" style="margin-top:10px; font-size:14px;"></div>
+                <div id="orderStatusMsg" class="text-container-block"></div>
             </div>
 
+            <!-- قائمة الـ 10 الأغنى باستايل قوي وتصميم فخم ببوكسات واضحة النصوص -->
             <div class="neon-box">
-                <h4 style="margin:0 0 10px 0;"><i class="fas fa-trophy"></i> أغنى 10 في البنك</h4>
+                <h4 style="margin:0 0 10px 0; color: #ffd700;"><i class="fas fa-trophy"></i> قائمة العشرة الأغنى بالنقابة ⚜️</h4>
                 <div id="topUsersList" class="top-list"></div>
             </div>
 
@@ -148,18 +265,7 @@
                 <h4 style="margin:0 0 10px 0;"><i class="fas fa-history"></i> سجل المعاملات السريعة</h4>
                 <div id="historyList" class="history-list"></div>
             </div>
-
-            <div class="neon-box">
-                <h4 style="margin:0 0 10px 0;"><i class="fas fa-user-cog"></i> إدارة الحساب</h4>
-                <input type="text" id="editUser" class="neon-input" style="margin: 15px auto;" placeholder="اسم المستخدم الجديد">
-                <div class="input-group">
-                    <input type="password" id="editPass" class="neon-input" placeholder="كلمة المرور الجديدة">
-                    <i class="fas fa-eye toggle-pass" onclick="togglePassVis('editPass')"></i>
-                </div>
-                <button class="neon-btn" style="padding:8px 20px; font-size:14px;" onclick="updateProfile()">حفظ التعديلات</button>
-            </div>
             
-            <!-- أزرار التواصل الثابتة والمحدثة -->
             <div style="text-align: center; margin-top: 10px;">
                 <a href="https://wa.me/966574360046" target="_blank" class="neon-btn" style="border-color:#ff0000; color:#ff0000; width:85%; box-shadow: 0 0 15px #ff0000;">
                     <i class="fas fa-user-shield"></i> الادارة العليا
@@ -170,34 +276,36 @@
             </div>
         </div>
 
-        <!-- التبويب الأساسي: البنك -->
+        <!-- التبويب الأساسي: البنك (تعديل: تحويل لا محدود دائماً ومفتوح) -->
         <div id="tab-bank" class="section">
-            <div class="neon-box">
-                <h3>🏦 تحويل بنكي</h3>
-                <div style="position:relative; text-align: right;">
-                    <label>ابحث واختر المستلم الفوري:</label>
-                    <input type="text" id="bankSearch" class="neon-input" style="margin: 10px auto;" placeholder="🔍 ابدأ بكتابة اسم المستلم..." oninput="filterBankUsers()">
-                    <div id="bankSearchResults" class="search-results-box"></div>
-                    <input type="hidden" id="targetUser">
-                    <div id="selectedUserLabel" style="color:var(--neon-blue); font-weight:bold; margin-bottom:15px; text-align:center;"></div>
+            <div class="neon-box" id="bankActionBox">
+                <h3>🏦 تحويل بنكي فوري</h3>
+                <div id="bankScheduleContainer">
+                    <div style="position:relative; text-align: right;">
+                        <label>ابحث واختر المستلم الفوري:</label>
+                        <input type="text" id="bankSearch" class="neon-input" style="margin: 10px auto;" placeholder="🔍 ابدأ بكتابة اسم المستلم..." oninput="filterBankUsers()">
+                        <div id="bankSearchResults" class="search-results-box"></div>
+                        <input type="hidden" id="targetUser">
+                        <div id="selectedUserLabel" style="color:var(--neon-blue); font-weight:bold; margin-bottom:15px; text-align:center;"></div>
+                    </div>
+                    <input type="number" id="bankAmount" class="neon-input" style="margin: 15px auto;" placeholder="المبلغ">
+                    <input type="text" id="bankMsg" class="neon-input" style="margin: 15px auto;" placeholder="إضافة رسالة الحوالة">
+                    <input type="password" id="bankPass" class="neon-input" style="margin: 15px auto;" placeholder="تأكيد كلمة مرورك">
+                    <button class="neon-btn" onclick="sendMoney()">تأكيد التحويل المباشر</button>
                 </div>
-                <input type="number" id="bankAmount" class="neon-input" style="margin: 15px auto;" placeholder="المبلغ">
-                <input type="text" id="bankMsg" class="neon-input" style="margin: 15px auto;" placeholder="إضافة رسالة الحوالة">
-                <input type="password" id="bankPass" class="neon-input" style="margin: 15px auto;" placeholder="تأكيد كلمة مرورك">
-                <button class="neon-btn" onclick="sendMoney()">تأكيد التحويل</button>
             </div>
         </div>
 
-        <!-- التبويب الأساسي: المتجر -->
+        <!-- التبويب الأساسي: المتجر بتوحيد الواجهات وتأثير الخلفيات المخصصة للأعضاء -->
         <div id="tab-shop" class="section">
-            <div class="neon-box">
+            <div class="neon-box" id="shopContainerUi">
                 <h3>🛒 متجر 𝑺𝑵𝑶𝑾⊰⛈️⊱𝑩𝑨𝑵𝑲</h3>
                 <input type="text" id="shopSearchInput" class="neon-input" style="margin: 10px auto;" placeholder="🔍 ابحث عن منتج أبجدياً..." oninput="renderShopItems()">
                 <div id="shopList" class="shop-grid"></div>
             </div>
         </div>
 
-        <!-- التبويب الأساسي الجديد: سجلاتي -->
+        <!-- التبويب الأساسي: سجلاتي المخصصة -->
         <div id="tab-my-logs" class="section">
             <div class="neon-box" style="padding: 15px 10px;">
                 <h3>📋 سجلاتي المخصصة</h3>
@@ -207,7 +315,6 @@
                     <button id="subTabBtn3" class="sub-tab-btn" onclick="switchSubTab('thanks')">رسائل الشكر</button>
                 </div>
 
-                <!-- فرعي: التحويلات -->
                 <div id="sub-ctx-trans">
                     <div style="display:flex; justify-content: space-around; margin-bottom:10px;">
                         <button class="neon-btn" style="padding:4px 10px; font-size:11px;" onclick="renderMyTrans('sent')">المرسلة</button>
@@ -216,14 +323,78 @@
                     <div id="myTransList" style="text-align:right; max-height:300px; overflow-y:auto;"></div>
                 </div>
 
-                <!-- فرعي: الطلبات -->
                 <div id="sub-ctx-orders" style="display:none;">
                     <div id="myOrdersList" style="text-align:right; max-height:300px; overflow-y:auto;"></div>
                 </div>
 
-                <!-- فرعي: رسائل الشكر -->
                 <div id="sub-ctx-thanks" style="display:none;">
                     <div id="myThanksList" style="text-align:right; max-height:300px; overflow-y:auto;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- التبويب الأساسي الجديد الخامس: الإعدادات للأعضاء والمشرفين مدمج ومطور بالكامل -->
+        <div id="tab-settings" class="section">
+            <div class="neon-box">
+                <h3>⚙️ إعدادات الحساب والمظهر</h3>
+                
+                <!-- جزء تعديل بوكس الحساب القديم المنقول بالكامل إلى الداخل هنا -->
+                <div class="text-container-block">
+                    <h4 style="margin:0 0 10px 0; color:var(--neon-blue);"><i class="fas fa-user-edit"></i> تعديل بيانات الحساب الأساسية</h4>
+                    <input type="text" id="editUser" class="neon-input" style="margin: 10px auto;" placeholder="اسم المستخدم الجديد">
+                    <div class="input-group">
+                        <input type="password" id="editPass" class="neon-input" placeholder="كلمة المرور الجديدة">
+                        <i class="fas fa-eye toggle-pass" onclick="togglePassVis('editPass')"></i>
+                    </div>
+                    <button class="neon-btn" style="padding:8px 20px; font-size:13px; width:100%;" onclick="updateProfile()">حفظ التعديلات الحسابية</button>
+                </div>
+
+                <!-- ميزة الأفاتار الشخصي التفاعلي المباشر للجميع -->
+                <div class="text-container-block">
+                    <h4 style="margin:0 0 10px 0; color:var(--neon-blue);"><i class="fas fa-user-circle"></i> تحديث الأفاتار الشخصي التفاعلي</h4>
+                    <label class="upload-lbl">
+                        <i class="fas fa-cloud-upload-alt"></i> اختر صورة الأفاتار الشخصي للرفع
+                        <input type="file" id="avatarFileInput" accept="image/*" style="display:none;" onchange="uploadImageToImgBB(this, 'avatar')">
+                    </label>
+                    <div id="avatarUploadStatus" style="font-size:12px; color:#aaa; margin-top:5px;"></div>
+                </div>
+
+                <!-- ميزة تغيير خلفية بوكس تسجيل الدخول الواجهة الموحدة -->
+                <div class="text-container-block">
+                    <h4 style="margin:0 0 10px 0; color:var(--neon-blue);"><i class="fas fa-desktop"></i> تخصيص خلفية واجهة تسجيل الدخول والبوكسات</h4>
+                    <label class="upload-lbl">
+                        <i class="fas fa-image"></i> رفع خلفية بوكس الدخول المخصصة
+                        <input type="file" id="loginBgFileInput" accept="image/*" style="display:none;" onchange="uploadImageToImgBB(this, 'loginBg')">
+                    </label>
+                    <button class="neon-btn" style="padding:4px 10px; font-size:11px; border-color:#ff4d4d; color:#ff4d4d;" onclick="resetCustomLoginBg()">إرجاع الافتراضي</button>
+                </div>
+
+                <!-- ميزة تعديل خلفية بطاقة مدى وإرجاع الطبيعي الفاخر مع البروز والنصوص البارزة -->
+                <div class="text-container-block">
+                    <h4 style="margin:0 0 10px 0; color:var(--neon-blue);"><i class="fas fa-credit-card"></i> تخصيص خلفية بطاقة صراف مدى</h4>
+                    <label class="upload-lbl">
+                        <i class="fas fa-camera"></i> رفع صورة خلفية بطاقة مدى المخصصة
+                        <input type="file" id="cardBgFileInput" accept="image/*" style="display:none;" onchange="uploadImageToImgBB(this, 'cardBg')">
+                    </label>
+                    <button class="neon-btn" style="padding:4px 10px; font-size:11px; border-color:#ffd700; color:#ffd700;" onclick="resetCustomCardBg()">إرجاع الصراف الطبيعي الفاخر</button>
+                </div>
+
+                <!-- تخصيص وحفظ رابط أغنية يوتيوب العضو الخاصة به بالمشغل التلقائي المكتمل -->
+                <div class="text-container-block">
+                    <h4 style="margin:0 0 10px 0; color:var(--neon-blue);"><i class="fas fa-music"></i> الرابط الموسيقي الخاص بك (يوتيوب)</h4>
+                    <input type="text" id="userMusicLinkIn" class="neon-input" placeholder="ضع رابط فيديو اليوتيوب هنا...">
+                    <button class="neon-btn" style="padding:8px 15px; font-size:12px; width:100%;" onclick="saveUserCustomMusic()">حفظ وتحديث نغمة الحساب</button>
+                </div>
+
+                <!-- متحكم تساقط المؤثرات الطقسية التفاعلي المطور -->
+                <div class="text-container-block">
+                    <h4 style="margin:0 0 10px 0; color:var(--neon-blue);"><i class="fas fa-cloud-sun-rain"></i> متحكم الطقس والمؤثرات المتساقطة بالمنصة</h4>
+                    <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 5px;">
+                        <button class="neon-btn" style="padding:5px 12px; font-size:12px;" onclick="changeWeatherType('snow')">❄️ ثلج</button>
+                        <button class="neon-btn" style="padding:5px 12px; font-size:12px;" onclick="changeWeatherType('rain')">🌧️ مطر</button>
+                        <button class="neon-btn" style="padding:5px 12px; font-size:12px;" onclick="changeWeatherType('roses')">🌹 ورود</button>
+                        <button class="neon-btn" style="padding:5px 12px; font-size:12px; border-color:red; color:red;" onclick="toggleWeatherStatus()">إيقاف / تشغيل ⚙️</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -318,7 +489,7 @@
         </div>
     </div>
 
-    <!-- نافذة منبثقة عامة ومخصصة للمتجر والسجلات والتأثيرات -->
+    <!-- نافذة منبثقة عامة ومخصصة للمتجر والسجلات والأفاتار التفاعلي المكبر -->
     <div id="customModal" class="custom-modal">
         <div id="modalContentBox" class="modal-content">
             <span class="close-modal" onclick="closeCustomModal()">&times;</span>
@@ -326,13 +497,14 @@
         </div>
     </div>
 
-    <!-- شريط التنقل السفلي الخماسي الجديد -->
+    <!-- شريط التنقل السفلي الخماسي المطور مضافاً إليه زر الإعدادات المخصص للأعضاء -->
     <nav class="bottom-nav" id="navBar" style="display:none">
-        <button class="nav-item" onclick="showTab('tab-home')"><i class="fas fa-home"></i><br>الرئيسية</button>
-        <button class="nav-item" onclick="showTab('tab-bank')"><i class="fas fa-university"></i><br>البنك</button>
-        <button class="nav-item" onclick="showTab('tab-shop')"><i class="fas fa-shopping-cart"></i><br>المتجر</button>
-        <button class="nav-item" onclick="showTab('tab-my-logs')"><i class="fas fa-folder-open"></i><br>سجلاتي</button>
-        <button class="nav-item" id="adminTabBtn" onclick="showTab('tab-admin')" style="display:none"><i class="fas fa-user-shield"></i><br>الإدارة</button>
+        <button class="nav-item" onclick="changeBottomNavActive(this, 'tab-home')"><i class="fas fa-home"></i><br>الرئيسية</button>
+        <button class="nav-item" onclick="changeBottomNavActive(this, 'tab-bank')"><i class="fas fa-university"></i><br>البنك</button>
+        <button class="nav-item" onclick="changeBottomNavActive(this, 'tab-shop')"><i class="fas fa-shopping-cart"></i><br>المتجر</button>
+        <button class="nav-item" onclick="changeBottomNavActive(this, 'tab-my-logs')"><i class="fas fa-folder-open"></i><br>سجلاتي</button>
+        <button class="nav-item" onclick="changeBottomNavActive(this, 'tab-settings')"><i class="fas fa-cog"></i><br>الإعدادات</button>
+        <button class="nav-item" id="adminTabBtn" onclick="changeBottomNavActive(this, 'tab-admin')" style="display:none"><i class="fas fa-user-shield"></i><br>الإدارة</button>
     </nav>
 
     <script type="module">
@@ -340,7 +512,6 @@
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-analytics.js";
         import { getFirestore, collection, addDoc, updateDoc, doc, onSnapshot, deleteDoc, query, orderBy, limit, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 
-        // تعديل: إعدادات الفايربيز الجديدة المحدثة
         const firebaseConfig = {
           apiKey: "AIzaSyAXja7crg6YouJDj_bZ4m--o1HKNIOnnkk",
           authDomain: "bank-7f833.firebaseapp.com",
@@ -354,7 +525,6 @@
         const analytics = getAnalytics(app);
         const db = getFirestore(app);
 
-        // الحارس الأمني للبنك المتجمد
         const statusSnap = await getDoc(doc(db, "settings", "system"));
         if (statusSnap.exists() && statusSnap.data().isFrozen === true) {
             const overlay = document.createElement('div');
@@ -364,7 +534,6 @@
             throw new Error("Frozen"); 
         }
 
-        // إعلانات البنر المستمرة
         onSnapshot(doc(db, "settings", "announcement"), (doc) => {
             if (doc.exists()) {
                 document.getElementById('bannerText').innerText = doc.data().text;
@@ -378,11 +547,9 @@
             showToast("تم تحديث الإعلان بنجاح ✅");
         }
 
-        // إعدادات وتحديث بيانات المسؤول الخارجي
         onSnapshot(doc(db, "settings", "manager"), (docSnap) => {
             if (docSnap.exists()) {
                 const d = docSnap.data();
-                // تعديل: ربط وتحديث بيانات المسؤول الخارجي في شاشة تسجيل الدخول والصفحة الرئيسية معاً
                 document.getElementById('bankManagerBtnText').innerText = d.name || "مسئول بنك سنو سنو يامي";
                 document.getElementById('bankManagerBtn').href = "https://wa.me/" + (d.phone || "966000000000");
                 document.getElementById('loginBankManagerBtnText').innerText = d.name || "مسئول بنك سنو سنو يامي";
@@ -425,6 +592,7 @@
                 loadUI();
                 loadHistory();
                 checkLoanWarning();
+                applyUserVisualCustomizations();
             }
             renderTopUsers();
             renderUsersTable();
@@ -442,13 +610,20 @@
 
         window.renderTopUsers = function() {
             const topList = document.getElementById('topUsersList');
+            if(!topList) return;
             const sorted = [...users].sort((a,b) => b.balance - a.balance).slice(0, 10);
-            topList.innerHTML = sorted.map((u, index) => `
+            topList.innerHTML = sorted.map((u, index) => {
+                const av = u.avatarUrl || "https://cdn-icons-png.flaticon.com/512/149/149071.png";
+                return `
                 <div class="top-item">
-                    <span>${index + 1}. ${u.nickname}</span>
+                    <div class="top-rank-box">
+                        <span style="font-weight:900; font-size:16px; color:#ffd700;">${index + 1}</span>
+                        <img src="${av}" class="user-avatar-circle" style="width:40px; height:40px;" onclick="openAvatarPopup('${av}')" alt="">
+                        <span style="font-weight:bold;">${u.nickname}</span>
+                    </div>
                     <span style="color:var(--neon-blue); font-weight:bold;">${formatNum(u.balance)} 🪙</span>
                 </div>
-            `).join('');
+            `}).join('');
         }
 
         onSnapshot(collection(db, "orders"), (snapshot) => {
@@ -515,10 +690,16 @@
                 document.getElementById('login-screen').style.display = 'none';
                 document.getElementById('main-app').style.display = 'block';
                 document.getElementById('navBar').style.display = 'flex';
+                
+                const firstNavItem = document.querySelector('.bottom-nav .nav-item');
+                if(firstNavItem) firstNavItem.classList.add('active-nav');
+                
                 loadUI();
                 showToast(`نورت يا ${user.nickname} ❤️‍🩹`);
                 renderShopItems();
                 switchSubTab('trans');
+                applyUserVisualCustomizations();
+                checkAndPlayUserCustomMusic();
             } else { alert("خطأ بالبيانات أو اسم المستخدم غير صحيح!"); }
         }
 
@@ -526,7 +707,130 @@
             document.getElementById('userBalance').innerText = formatNum(currentUser.balance);
             document.getElementById('userNickShow').innerText = currentUser.nickname;
             document.getElementById('cardLast').innerText = String(currentUser.pass).slice(-2);
+            document.getElementById('cardAvatar').src = currentUser.avatarUrl || "https://cdn-icons-png.flaticon.com/512/149/149071.png";
+            
+            document.getElementById('editUser').value = currentUser.user || "";
+            if(currentUser.customMusicUrl) {
+                document.getElementById('userMusicLinkIn').value = currentUser.customMusicUrl;
+            }
+            
             if(currentUser.role === 'admin' || currentUser.role === 'dev') document.getElementById('adminTabBtn').style.display = 'block';
+        }
+
+        function applyUserVisualCustomizations() {
+            if(!currentUser) return;
+            
+            // إصلاح شاشة الدخول: تطبيق الخلفية بشكل سلس وفوري عند الدخول
+            if(currentUser.loginBgUrl) {
+                const bgStyle = `url('${currentUser.loginBgUrl}') no-repeat center center`;
+                document.getElementById('loginBoxUi').style.background = bgStyle;
+                document.getElementById('loginBoxUi').style.backgroundSize = "cover";
+                document.getElementById('shopContainerUi').style.background = bgStyle;
+                document.getElementById('shopContainerUi').style.backgroundSize = "cover";
+                document.getElementById('bankActionBox').style.background = bgStyle;
+                document.getElementById('bankActionBox').style.backgroundSize = "cover";
+            } else {
+                document.getElementById('loginBoxUi').style.background = "var(--box-bg)";
+                document.getElementById('shopContainerUi').style.background = "var(--box-bg)";
+                document.getElementById('bankActionBox').style.background = "var(--box-bg)";
+            }
+
+            const cardElement = document.getElementById('userMadaCard');
+            if(currentUser.cardBgUrl) {
+                cardElement.style.background = `url('${currentUser.cardBgUrl}') no-repeat center center`;
+                cardElement.style.backgroundSize = "cover";
+                cardElement.classList.add('custom-bg-applied');
+            } else {
+                cardElement.style.background = "linear-gradient(135deg, #b8860b 0%, #ffd700 50%, #8a6d1c 100%)";
+                cardElement.classList.remove('custom-bg-applied');
+            }
+        }
+
+        window.uploadImageToImgBB = function(inputElement, targetType) {
+            const file = inputElement.files[0];
+            if(!file) return;
+
+            showToast("جاري رفع ومعالجة الصورة السحابية... ⏳");
+
+            const formData = new FormData();
+            formData.append("image", file);
+
+            fetch("https://api.imgbb.com/1/upload?key=78c14f17d577c600d7a91a3e0cb59ec5", {
+                method: "POST",
+                body: formData
+            })
+            .then(res => res.json())
+            .then(async data => {
+                if(data.success && data.data && data.data.url) {
+                    const uploadedUrl = data.data.url;
+                    
+                    if(targetType === 'avatar') {
+                        await updateDoc(doc(db, "users", currentUser.id), { avatarUrl: uploadedUrl });
+                        showToast("تم تحديث الأفاتار التفاعلي للكل بنجاح! 🟢");
+                    } else if(targetType === 'loginBg') {
+                        await updateDoc(doc(db, "users", currentUser.id), { loginBgUrl: uploadedUrl });
+                        showToast("تم تحديث خلفية الواجهات والبوكسات بنجاح! 🖼️");
+                    } else if(targetType === 'cardBg') {
+                        await updateDoc(doc(db, "users", currentUser.id), { cardBgUrl: uploadedUrl });
+                        showToast("تمت تهيئة وتحديث خلفية بطاقة مدى ببروز فخم! 💳");
+                    }
+                } else {
+                    alert("فشل رفع الصورة، تأكد من جودة الاتصال أو الملف المرفوع.");
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                showToast("حدث خطأ أثناء الاتصال بسيرفر الرفع ❌");
+            });
+        }
+
+        window.resetCustomLoginBg = async function() {
+            if(confirm("هل تود حذف الخلفية المخصصة وإرجاع الشكل الافتراضي؟")) {
+                await updateDoc(doc(db, "users", currentUser.id), { loginBgUrl: "" });
+                showToast("تم إرجاع الشكل الافتراضي للواجهات ✅");
+            }
+        }
+
+        window.resetCustomCardBg = async function() {
+            if(confirm("هل تود إرجاع شكل صراف مدى الطبيعي الفاخر؟")) {
+                await updateDoc(doc(db, "users", currentUser.id), { cardBgUrl: "" });
+                showToast("عادت بطاقة مدى لشكل الصراف الطبيعي الفاخر ✨");
+            }
+        }
+
+        window.saveUserCustomMusic = async function() {
+            const url = document.getElementById('userMusicLinkIn').value.trim();
+            if(!url) return showToast("الرجاء وضع رابط فيديو يوتيوب أولاً!");
+            
+            let videoId = "";
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            const match = url.match(regExp);
+            if (match && match[2].length == 11) {
+                videoId = match[2];
+            } else {
+                videoId = url;
+            }
+
+            await updateDoc(doc(db, "users", currentUser.id), { customMusicUrl: url, customMusicId: videoId });
+            showToast("تم حفظ وتحديث نغمتك الموسيقية المخصصة بنجاح! 🎶");
+            checkAndPlayUserCustomMusic();
+        }
+
+        function checkAndPlayUserCustomMusic() {
+            if(currentUser && currentUser.customMusicId) {
+                const wrap = document.getElementById('musicPlayerWrap');
+                wrap.innerHTML = `<iframe id="ytPlayer" width="1" height="1" src="https://www.youtube.com/embed/${currentUser.customMusicId}?enablejsapi=1" frameborder="0" allow="autoplay"></iframe>`;
+            }
+        }
+
+        window.openAvatarPopup = function(imgSrc) {
+            let html = `
+                <div style="padding: 10px;">
+                    <h4 style="margin-bottom:15px; color:var(--neon-blue);">معاينة أفاتار العضو التفاعلي 💎</h4>
+                    <img src="${imgSrc}" style="width:100%; max-width:300px; height:300px; border-radius:20px; object-fit:cover; border:3px solid var(--neon-blue); box-shadow:0 0 25px var(--neon-blue);" alt="">
+                </div>
+            `;
+            openCustomModal(html);
         }
 
         window.loadHistory = function() {
@@ -540,7 +844,7 @@
                 hList.innerHTML = myLogs.slice(0, 5).map(l => {
                     const isOut = l.fromId === currentUser.id;
                     return `<div class="history-item">
-                        <div class="history-top" onclick="switchTab('tab-my-logs')">
+                        <div class="history-top" onclick="showTab('tab-my-logs')">
                             <span>${isOut ? 'إلى: '+l.toName : 'من: '+l.fromName}</span>
                             <span class="${isOut ? 'val-minus' : 'val-plus'}">${isOut ? '-' : '+'}${formatNum(l.amount)}</span>
                         </div>
@@ -549,7 +853,6 @@
             });
         }
 
-        // دمج البحث والتحويل الفوري الفائق
         window.filterBankUsers = function() {
             const input = document.getElementById('bankSearch').value.toLowerCase();
             const resultsBox = document.getElementById('bankSearchResults');
@@ -589,7 +892,6 @@
                     await updateDoc(doc(db, "users", currentUser.id), { balance: deductedBalance });
                     
                     let targetFinalBalance = tu.balance + amt;
-                    // تفعيل قانون اقتطاع القرض الفوري بقيمة 20% في حال وجود قرض نشط لدى المستلم
                     if(tu.loanTimestamp && (Date.now() - tu.loanTimestamp < 7 * 24 * 60 * 60 * 1000)) {
                         let loanDeduction = Math.min(amt * 0.20, targetFinalBalance);
                         targetFinalBalance -= loanDeduction;
@@ -618,14 +920,12 @@
             }
         }
 
-        // تحديث وعرض سلع المتجر الأبجدي والأفقي
         onSnapshot(collection(db, "shop"), (snap) => {
             shopItems = snap.docs.map(d => ({id: d.id, ...d.data()}));
             renderShopItems();
             renderAdminShopConfig();
         });
 
-        // قائمة السلع الافتراضية المطلوبة في حال كان المتجر فارغاً
         const defaultProducts = [
             { name: "تغير لقب", price: 0, desc: "تغير لقبك الحالي إلى لقب جديد متاح (الأول مجاناً ثم 300k)", fieldType: "old_new", isDefault: true },
             { name: "افتار النقابه", price: 200000, desc: "غير افتار الكروب الرسمي لمدة يوم كامل", fieldType: "none", isDefault: true },
@@ -635,10 +935,10 @@
             { name: "تخريب القب", price: 250000, desc: "تخريب لقب صديقك أو ضحيتك لمدة يوم كامل", fieldType: "sabotage", isDefault: true },
             { name: "تبادل الالقاب", price: 500000, desc: "تبادل لقبك الحالي رسمياً مع شخص آخر بالنقابة", fieldType: "target_member", isDefault: true },
             { name: "حجز لقب", price: 800000, desc: "حجز لقب معين مسبقاً حتى تكون محتاجاً لتفعيله", fieldType: "text_generic", isDefault: true },
-            { name: "عجلة الحظ", price: 100000, desc: "شراء عجلة الحظ المباشرة والفوز بجوائز نقدية كبرى تصل إلى 500k", fieldType: "none", isWheel: true, isDefault: true },
+            { name: "عجلة الحظ", price: 50000, desc: "شراء عجلة الحظ المباشرة العادلة والفوز بجوائز نقدية كبرى تصل إلى 500k", fieldType: "none", isWheel: true, isDefault: true },
             { name: "قرض", price: 0, desc: "طلب قرض مالي فوري بحد أقصى 500k مع خصم 20% يومياً من الواردات", fieldType: "none", isLoan: true, isDefault: true },
             { name: "رسالة شكر", price: 60000, desc: "إرسال رسالة شكر خاصة لشخص مميز مع إمكانية إرفاق مبلغ هدية بويني", fieldType: "target_member", isThanks: true, isDefault: true },
-            { name: "شراء زيارة", price: 300000, desc: "تروح نقابة أخرى لمدة ثلاث أيام كاملة (متوفر فقط يومي الخميس والجمعة)", fieldType: "text_generic", isVisit: true, isDefault: true },
+            { name: "شراء زيارة", price: 300000, desc: "تروح نقابة أخرى لمدة ثلاث أيام كاملة", fieldType: "text_generic", isVisit: true, isDefault: true },
             { name: "الالغاء", price: 500000, desc: "إلغاء أحد عمليات الشراء القائمة السابقة مثل التخريب أو الحماية (+ ثمن الشيء الملغى)", fieldType: "text_generic", isDefault: true }
         ];
 
@@ -653,10 +953,7 @@
                 }
             });
 
-            // تصفية السلع غير النشطة والموقوفة من طرف الإدارة
             combined = combined.filter(i => i.isAvailable !== false);
-
-            // البحث الأبجدي والترتيب الأفقي
             combined = combined.filter(i => i.name.toLowerCase().includes(searchVal));
             combined.sort((a,b) => a.name.localeCompare(b.name, 'ar'));
 
@@ -668,18 +965,17 @@
             grid.innerHTML = combined.map(i => `
                 <div class="shop-item" onclick="openShopProductModal('${i.name}', ${i.price}, '${i.desc || ""}', '${i.fieldType || "none"}', ${i.isWheel || false}, ${i.isLoan || false}, ${i.isThanks || false}, ${i.isVisit || false})">
                     <b>${i.name}</b><br>
-                    <span style="color:#ffd700; font-size:12px;">🪙 ${i.price > 0 ? formatNum(i.price) : 'متغير/خاص'}</span>
-                    <button class="neon-btn" style="padding:4px; margin-top:5px; width:100%; font-size:11px;">عرض وتفاصيل</button>
+                    <span class="shop-price-badge">🪙 ${i.price > 0 ? formatNum(i.price) : 'متغير/خاص'}</span>
+                    <button class="neon-btn" style="padding:4px; margin-top:8px; width:100%; font-size:11px;">عرض وتفاصيل</button>
                 </div>
             `).join('');
         }
 
         window.openShopProductModal = function(name, price, desc, fieldType, isWheel, isLoan, isThanks, isVisit) {
-            // التحقق الخاص بمنتج شراء زيارة (يوم الخميس والجمعة فقط)
+            // التحقق وتطبيق قيد المرة الواحدة في الأسبوع للزيارة
             if(isVisit) {
-                const currentDay = new Date().getDay(); // 4 = الخميس, 5 = الجمعة
-                if(currentDay !== 4 && currentDay !== 5) {
-                    alert("عذراً، هذا المنتج متاح للشراء فقط في أيام الخميس والجمعة! 🌷");
+                if(currentUser.lastVisitTimestamp && (Date.now() - currentUser.lastVisitTimestamp < 7 * 24 * 60 * 60 * 1000)) {
+                    alert("عذراً، مسموح بشراء الزيارة مرة واحدة فقط كل أسبوع! 🌹");
                     return;
                 }
             }
@@ -687,15 +983,16 @@
             let html = `<h4>${name}</h4><p style="font-size:13px; color:#ccc;">${desc}</p>`;
 
             if(isWheel) {
-                html += `<p>سعر تدوير العجلة: 100k</p>
+                html += `<p>سعر التدوير الحالي: 50,000 بوينت</p>
                          <div class="wheel-pointer"></div>
-                         <div id="luckyWheel" class="wheel-container" style="background: conic-gradient(red 0deg 60deg, orange 60deg 120deg, yellow 120deg 180deg, green 180deg 240deg, blue 240deg 300deg, purple 300deg 360deg);">
-                            <div style="position:absolute; width:100%; text-align:center; top:10px; font-weight:bold; font-size:12px;">100k</div>
-                            <div style="position:absolute; width:100%; text-align:center; top:160px; font-weight:bold; font-size:12px;">50k</div>
-                            <div style="position:absolute; width:100%; text-align:right; right:10px; top:90px; font-weight:bold; font-size:12px;">20k</div>
-                            <div style="position:absolute; width:100%; text-align:left; left:10px; top:90px; font-weight:bold; font-size:12px;">200k</div>
+                         <div id="luckyWheel" class="wheel-container" style="background: conic-gradient(#ffd700 0deg 72deg, #ff9800 72deg 144deg, #00ff88 144deg 216deg, #00f2ff 216deg 288deg, #ff4d4d 288deg 360deg);">
+                            <div style="position:absolute; width:100%; text-align:center; top:12px; font-weight:bold; font-size:11px; color:#000;">500k</div>
+                            <div style="position:absolute; width:100%; text-align:center; top:180px; font-weight:bold; font-size:11px; color:#000;">60k</div>
+                            <div style="position:absolute; width:100%; text-align:right; right:15px; top:100px; font-weight:bold; font-size:11px; color:#000;">200k</div>
+                            <div style="position:absolute; width:100%; text-align:left; left:15px; top:100px; font-weight:bold; font-size:11px; color:#000;">30k</div>
+                            <div style="position:absolute; width:100%; text-align:center; top:100px; font-weight:bold; font-size:14px; color:red;">0 🌹</div>
                          </div>
-                         <button class="neon-btn" id="spinWheelBtn" onclick="actionSpinWheel()">إطلاق العجلة الآن ⚡</button>`;
+                         <button class="neon-btn" id="spinWheelBtn" onclick="actionSpinWheel()">إطلاق العجلة الحماسية العادلة ⚡</button>`;
                 openCustomModal(html);
                 return;
             }
@@ -708,7 +1005,6 @@
                 return;
             }
 
-            // تفعيل نظام حساب القطع والمدد المتضاعفة للمنتجات العادية
             html += `<div style="margin:15px 0; text-align:right;">
                         <label>كم قطة/مدة تحتاج من هذا المنتج؟</label>
                         <input type="number" id="productQty" class="neon-input" value="1" min="1" style="width:80px; margin-top:5px;" oninput="recalcProductPrice('${name}', ${price})">
@@ -737,7 +1033,7 @@
                 html += `<input type="text" id="field_generic_text" class="neon-input" placeholder="اكتب المطلوب وتفاصيل الطلب هنا...">`;
             }
 
-            html += `<button class="neon-btn" style="width:100%; margin-top:10px;" onclick="submitPurchaseOrder('${name}', ${price}, '${fieldType}', ${isThanks})">إرسال طلب الشراء الرسمي</button>`;
+            html += `<button class="neon-btn" style="width:100%; margin-top:10px;" onclick="submitPurchaseOrder('${name}', ${price}, '${fieldType}', ${isThanks}, ${isVisit})">إرسال طلب الشراء الرسمي</button>`;
             openCustomModal(html);
         }
 
@@ -745,7 +1041,6 @@
             let qty = parseInt(document.getElementById('productQty').value) || 1;
             if(qty < 1) qty = 1;
             
-            // احتساب مضاعفة حصرية لـ "تغير لقب" (الأول مجاني ثم 300k)
             let finalPrice = basePrice * qty;
             if(name === "تغير لقب") {
                 finalPrice = (qty - 1) * 300000;
@@ -769,28 +1064,27 @@
             document.getElementById('tkSearchResults').style.display = 'none';
         }
 
-        // تدوير عجلة الحظ التلقائية الفورية بالكامل دون الرجوع للمشرفين
         window.actionSpinWheel = async function() {
-            if(currentUser.balance < 100000) return showToast("رصيدك الحالي أقل من 100k بوينت!");
+            if(currentUser.balance < 50000) return showToast("رصيدك الحالي أقل من 50,000 بوينت!");
             
-            // قيد الـ 24 ساعة اليومية لعجلة الحظ وحفظها بالـ Firestore
             if(currentUser.lastWheelTimestamp && (Date.now() - currentUser.lastWheelTimestamp < 24 * 60 * 60 * 1000)) {
-                alert("ممنوع تدوير العجلة مجدداً اليوم! عد غداً بعد مرور 24 ساعة أخرى.");
+                alert("ممنوع تدوير العجلة مجدداً اليوم! مسموح مرة واحدة فقط كل 24 ساعة.");
                 return;
             }
 
             document.getElementById('spinWheelBtn').disabled = true;
             const wheel = document.getElementById('luckyWheel');
-            const prizes = [100000, 5000, 20000, 200000, 500000, 0];
+            
+            const prizes = [500000, 200000, 60000, 30000, 0];
             const randIndex = Math.floor(Math.random() * prizes.length);
             const winAmt = prizes[randIndex];
             
-            const deg = 3600 + (randIndex * 60); 
+            const deg = 3600 + (randIndex * 72); 
             wheel.style.transform = `rotate(${deg}deg)`;
 
             setTimeout(async () => {
                 try {
-                    let newBal = currentUser.balance - 100000 + winAmt;
+                    let newBal = currentUser.balance - 50000 + winAmt;
                     await updateDoc(doc(db, "users", currentUser.id), { 
                         balance: newBal,
                         lastWheelTimestamp: Date.now()
@@ -798,32 +1092,35 @@
                     
                     await addDoc(collection(db, "transactions"), {
                         fromId: "SYSTEM_WHEEL",
-                        fromName: "عجلة الحظ التلقائية",
+                        fromName: "عجلة الحظ الحماسية",
                         toId: currentUser.id,
                         toName: currentUser.nickname,
                         amount: winAmt,
-                        msg: `لعب عجلة الحظ اليومية وفاز بـ ${winAmt}`,
+                        msg: `لعب عجلة الحظ العادلة وفاز بـ ${winAmt}`,
                         date: Date.now()
                     });
                     
-                    alert(`مبروك! لفت العجلة واستقرت على جائزة بقيمة: ${formatNum(winAmt)} بوينت تم إيداعها وسحب ثمن العجلة تلقائياً! 🎉`);
+                    if(winAmt > 0) {
+                        alert(`مبروك! لفت العجلة واستقرت على الجائزة: ${formatNum(winAmt)} بوينت تم إيداعها! 🎉`);
+                    } else {
+                        alert("0 (راحت عليك 😅🌹) حظاً أوفق في المرة القادمة!");
+                    }
                     closeCustomModal();
                 } catch(e) { showToast("خطأ بالاتصال الفوري"); }
             }, 4000);
         }
 
-        // سحب نظام القروض التلقائي الأسبوعي
         window.actionTakeLoan = async function() {
             const amt = parseInt(document.getElementById('loanAmountIn').value);
             if(isNaN(amt) || amt <= 0 || amt > 500000) return alert("أقصى حد متاح للقرض هو 500,000 بوينت!");
             
-            // قيد الأسبوع الفوري لمنع القروض المتكررة
+            // قيد القرض مسموح في الأسبوع مرة واحدة
             if(currentUser.loanTimestamp && (Date.now() - currentUser.loanTimestamp < 7 * 24 * 60 * 60 * 1000)) {
-                alert("لقد أخذت قرضاً بالفعل من أقل من 7 أيام! يرجى الانتظار حتى الأسبوع القادم.");
+                alert("لقد أخذت قرضاً بالفعل من أقل من 7 أيام! يرجى الانتظار حتى مرور أسبوع كامل.");
                 return;
             }
 
-            if(confirm(`تأكيد سحب قرض بقيمة ${formatNum(amt)}؟ سيتم اقتطاع 20% يومياً وتلقائياً من الحوالات الواردة.`)) {
+            if(confirm(`تأكيد سحب قرض بقيمة ${formatNum(amt)}؟ سيتم اقتطاع 20% تلقائياً من الحوالات الواردة.`)) {
                 await updateDoc(doc(db, "users", currentUser.id), {
                     balance: currentUser.balance + amt,
                     loanTimestamp: Date.now()
@@ -844,8 +1141,7 @@
             }
         }
 
-        // إرسال طلب الشراء المتطور للمتجر للادارة مع منع الطلبات التلقائية عند عدم كفاية القيمة الكلية
-        window.submitPurchaseOrder = async function(itemName, basePrice, fieldType, isThanks) {
+        window.submitPurchaseOrder = async function(itemName, basePrice, fieldType, isThanks, isVisit) {
             let qty = parseInt(document.getElementById('productQty').value) || 1;
             if(qty < 1) qty = 1;
 
@@ -888,7 +1184,11 @@
                 if(!fieldsData.genericText) return alert("الرجاء كتابة تفاصيل الطلب!");
             }
 
-            // إرسال الطلب بشكل رسمي للـ Firestore
+            // تحديث وقت الزيارة محلياً عند الإرسال لفرض القيد الأسبوعي
+            if(isVisit) {
+                await updateDoc(doc(db, "users", currentUser.id), { lastVisitTimestamp: Date.now() });
+            }
+
             await addDoc(collection(db, "orders"), {
                 uid: currentUser.id,
                 nick: currentUser.nickname,
@@ -905,7 +1205,6 @@
             closeCustomModal();
         }
 
-        // إدارة وعرض علامات تبويب صفحة سجلاتي الخماسية المدمجة بالأحدث والغير مقروءة
         let activeSubTab = 'trans';
         window.switchSubTab = function(type) {
             activeSubTab = type;
@@ -960,11 +1259,9 @@
                         <p style="text-align:right;"><b>إلى:</b> ${to}</p>
                         <p style="text-align:right;"><b>المبلغ:</b> ${formatNum(amt)} بوينت</p>
                         <p style="text-align:right;"><b>الرسالة المكتوبة:</b> ${msg}</p>
-                        <p style="text-align:right; font-size:11px; color:#aa3;"><b>تاريخ الحوالة:</b> ${d}</p>`;
+                        <p style="text-align:right; font-size:11px; color:#doc;"><b>تاريخ الحوالة:</b> ${d}</p>`;
             
             openCustomModal(html);
-            
-            // في حال كانت الحوالة مستقبلة يتم إطلاق زينة واحتفالات فرح وسقوط هدايا بالنافذة
             if(mode === 'received') {
                 triggerCelebrationEffects();
             }
@@ -1061,7 +1358,6 @@
             document.getElementById('giftBoxHint').innerHTML = `<b style="font-size:18px; color:#00ff88;">+ ${formatNum(amt)} بوينت</b><br><span style="font-size:14px; font-weight:bold; color:white;">تستاهل! ⭐</span>`;
         }
 
-        // تعديلات الإدارة لطلبات الشراء والفرز لثلاثة أقسام بالأحدث
         window.filterAdminOrders = function(status) {
             currentAdminOrdFilter = status;
             document.querySelectorAll('#ordersAdminDiv .sub-tab-btn').forEach(b => b.classList.remove('active-sub'));
@@ -1071,7 +1367,6 @@
             renderOrdersTableAdmin();
         }
 
-        // تعديل: إضافة منطق إظهار حقول طلب العميل المدخلة بدقة عند طلب التفاصيل
         window.showAdminOrderFieldsDetails = function(orderId) {
             const order = globalOrders.find(o => o.id === orderId);
             if(!order || !order.fields) {
@@ -1110,7 +1405,6 @@
             const filtered = globalOrders.filter(o => o.status === currentAdminOrdFilter).sort((a,b) => b.date - a.date);
             
             if(currentAdminOrdFilter === 'pending') {
-                // تعديل: إضافة زر "التفاصيل" بجوار عناصر التحكم لإظهار الحقول المكتوبة
                 table.innerHTML = `<tr><th>المشتري</th><th>السلعة</th><th>السعر</th><th>القرار والاتصال</th></tr>` + 
                 filtered.map(o => {
                     const clientUser = users.find(u => u.id === o.uid);
@@ -1141,7 +1435,6 @@
                 const user = users.find(u => u.id === order.uid);
                 if(!user || user.balance < order.itemPrice) return alert("قيمة الرصيد الحالية للعضو غير كافية لإتمام الموافقة!");
                 
-                // في حال قبول رسالة شكر ملوثة بمبلغ مالي يتم خصم القيمة الإضافية من الراسل فوراً وإرسالها للمستقبل
                 if(order.isThanks && order.fields && order.fields.giftAmount > 0) {
                     const recipient = users.find(u => u.id === order.fields.targetUid);
                     if(recipient) {
@@ -1163,6 +1456,7 @@
         window.renderUsersTable = function() {
             const sVal = document.getElementById('adminUserSearch').value.toLowerCase();
             const table = document.getElementById('usersTable');
+            if(!table) return;
             const filtered = users.filter(u => u.nickname.toLowerCase().includes(sVal));
             table.innerHTML = `<tr><th>العضو</th><th>الرصيد</th><th>أكشن وتجميد</th></tr>` + 
             filtered.map(u => `<tr>
@@ -1178,7 +1472,6 @@
             </tr>`).join('');
         }
 
-        // ميزة تجميد الحساب وإلغائه التفاعلي الفوري الفائق
         window.toggleFreezeAccount = async function(id, currentStatus) {
             const nextStatus = !currentStatus;
             if(confirm(`هل أنت متأكد من تغيير حالة حساب هذا العضو إلى ${nextStatus ? 'مجمد ❄️' : 'ساري 🟢'}؟`)) {
@@ -1198,7 +1491,7 @@
             const exists = users.find(x => x.user === u || x.nickname === n);
             if(exists) return showToast("اسم المستخدم أو اللقب موجود مسبقاً! ❌");
             
-            await addDoc(collection(db, "users"), { nickname: n, user: u, pass: p, phone: ph, balance: b, role: role, isFrozen: false });
+            await addDoc(collection(db, "users"), { nickname: n, user: u, pass: p, phone: ph, balance: b, role: role, isFrozen: false, avatarUrl: "" });
             document.getElementById('nNick').value = "";
             document.getElementById('nUser').value = "";
             document.getElementById('nPass').value = "";
@@ -1232,7 +1525,6 @@
         window.toggleProductVisibility = async function(id, name, currentVisibility) {
             const nextVis = !currentVisibility;
             if(id === "default") {
-                // للمنتجات الافتراضية نقوم بإنشاء مستند جديد بالـ Firestore لحفظ حالتها الموقوفة
                 await setDoc(doc(db, "shop", "default_" + name), { name: name, price: 0, isAvailable: nextVis, isDefault: true });
             } else {
                 await updateDoc(doc(db, "shop", id), { isAvailable: nextVis });
@@ -1282,7 +1574,14 @@
 
         window.showTab = function(id) { 
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active')); 
-            document.getElementById(id).classList.add('active'); 
+            const target = document.getElementById(id);
+            if(target) target.classList.add('active'); 
+        }
+        
+        window.changeBottomNavActive = function(btnElement, id) {
+            document.querySelectorAll('.bottom-nav .nav-item').forEach(i => i.classList.remove('active-nav'));
+            btnElement.classList.add('active-nav');
+            showTab(id);
         }
         
         window.toggleDiv = function(id) { 
@@ -1306,7 +1605,6 @@
             if (x.type === "password") { x.type = "text"; } else { x.type = "password"; }
         }
 
-        // نظام النوافذ المنبثقة التفاعلية العامة للبنك والمتجر وسجلاتي
         window.openCustomModal = function(htmlContent) {
             const modal = document.getElementById('customModal');
             document.getElementById('modalInnerData').innerHTML = htmlContent;
@@ -1317,7 +1615,6 @@
             const modal = document.getElementById('customModal');
             const box = document.getElementById('modalContentBox');
             modal.style.display = 'none';
-            // إعادة ضبط الإعدادات والشكل الجمالي للنافذة
             box.style.border = "2px solid var(--neon-blue)";
             box.style.boxShadow = "0 0 30px var(--neon-blue)";
             box.classList.remove('rose-modal');
@@ -1328,8 +1625,16 @@
         let isM = false;
         function toggleMusic() {
             const f = document.getElementById('ytPlayer');
-            if(!isM) { f.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*'); isM = true; showToast("تم تشغيل القران الكريم انصت 🎶"); } 
-            else { f.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*'); isM = false; showToast("تم ايقاف القران الكريم 🔇"); }
+            if(!f) { return showToast("أضف رابط نغمتك من الإعدادات أولاً! 🎶"); }
+            if(!isM) { 
+                f.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*'); 
+                isM = true; 
+                showToast("تم تشغيل نغمتك الخاصة انصت 🎶"); 
+            } else { 
+                f.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*'); 
+                isM = false; 
+                showToast("تم إيقاف التشغيل المالي 🔇"); 
+            }
         }
         function setTheme(m) {
             const root = document.documentElement;
@@ -1337,30 +1642,56 @@
             else { root.style.setProperty('--neon-blue', '#ff69b4'); document.getElementById('bodyTag').style.backgroundColor = "#1a0d14"; showToast("تم تفعيل الثيم الوردي 💕"); }
         }
         function showToast(m) { Toastify({ text: m, duration: 3000, gravity: "top", position: "center", style: { background: "var(--neon-blue)", color: "black", fontWeight: "bold", borderRadius: "10px" } }).showToast(); }
-        window.onload = () => { setTimeout(() => { const loader = document.getElementById('loader'); if(loader) loader.style.display = 'none'; }, 1000); };
+        window.onload = () => { 
+            setTimeout(() => { const loader = document.getElementById('loader'); if(loader) loader.style.display = 'none'; }, 1000); 
+            initWeatherEngine();
+        };
 
-        // نظام الإضافات الجانبية والإشعارات المتداولة بالدقائق والصلوات والقرآن الكريم
-        let siteMinutes = 0;
-        setInterval(() => {
-            if(document.getElementById('main-app').style.display === 'block') {
-                siteMinutes++;
-                if(siteMinutes === 1) {
-                    showToast("لقد بقيت في الموقع دقيقة أخرى في الموقع اذكر الله 🤍");
-                } else if(siteMinutes === 2) {
-                    showToast("دقيقة ثانية لقد بقيت دقيقة أخرى صلى على خير الخلق محمد ﷺ ✨");
-                } else if(siteMinutes === 3) {
-                    showToast("لقد بقيت دقيقة أخرى في الموقع، لا يلهيك أي شيء عن صلاتك بر والديك 🕋");
-                    siteMinutes = 0; // إعادة التدوير للتنبيهات الثلاثية
+        let currentWeatherType = 'snow';
+        let isWeatherActive = true;
+        let weatherInterval = null;
+
+        function initWeatherEngine() {
+            if(weatherInterval) clearInterval(weatherInterval);
+            const container = document.getElementById('weather-container');
+            if(!container) return;
+            container.innerHTML = "";
+
+            if(!isWeatherActive) return;
+
+            weatherInterval = setInterval(() => {
+                const drop = document.createElement('div');
+                drop.className = 'weather-drop';
+                
+                if(currentWeatherType === 'snow') {
+                    drop.innerText = '❄️';
+                } else if(currentWeatherType === 'rain') {
+                    drop.innerText = '💧';
+                } else if(currentWeatherType === 'roses') {
+                    drop.innerText = '🌹';
                 }
-            }
-        }, 60000);
 
-        // إشعار متداول وبشكل دوري دقيق كل دقيقتين لسماع القرآن الكريم بالمنصة
-        setInterval(() => {
-            if(document.getElementById('main-app').style.display === 'block') {
-                showToast("📖 يوجد قرآن في الموقع ارح سمعك؛ اضغط على أيقونة الموسيقى أعلى الشاشة");
-            }
-        }, 120000);
+                drop.style.left = Math.random() * 100 + "vw";
+                drop.style.fontSize = (Math.random() * 12 + 10) + "px";
+                drop.style.animationDuration = (Math.random() * 3 + 2) + "s";
+                drop.style.animationDelay = Math.random() * 2 + "s";
+                container.appendChild(drop);
+
+                setTimeout(() => { drop.remove(); }, 5000);
+            }, 150);
+        }
+
+        window.changeWeatherType = function(type) {
+            currentWeatherType = type;
+            initWeatherEngine();
+            showToast("تم تحديث الأجواء والمؤثرات بنجاح!");
+        }
+
+        window.toggleWeatherStatus = function() {
+            isWeatherActive = !isWeatherActive;
+            initWeatherEngine();
+            showToast(isWeatherActive ? "تم تشغيل مؤثرات الطقس 🌧️" : "تم إيقاف مؤثرات الطقس ⚙️");
+        }
     </script>
 </body>
 </html>
